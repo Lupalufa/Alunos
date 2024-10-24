@@ -1,4 +1,5 @@
 const { alunos } = require("./alunos")
+var validator = require("validator")
 
 function editarAluno(matricula, novoNome, novoEmail, novoTelefone){
     try {
@@ -10,7 +11,20 @@ function editarAluno(matricula, novoNome, novoEmail, novoTelefone){
             aluno.email = novoEmail,
             aluno.telefone = novoTelefone
             console.log("Aluno editado com sucesso")
-        }else {
+        }
+        if(!validator.isEmail(novoEmail)){
+            console.error("O e-mail não é verdadeiro")
+            return
+        }
+        
+        if(
+        validator.isEmpty(novoNome) ||
+        validator.isEmpty(novoTelefone)
+        ){
+            console.error("Todos os campos não são verdadeiros")
+            return
+        }
+        else {
             console.log("Aluno não encontrado")
         }
     } catch (error) {
